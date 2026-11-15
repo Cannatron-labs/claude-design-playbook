@@ -1,0 +1,65 @@
+# {{PROJECT}}: project rules
+
+<!-- Copy to the repo root as CLAUDE.md and fill every {{...}}. Claude Code loads it in every session. Keep it short:
+     facts, rules and pointers. Anything long goes in docs/ and gets linked from here. -->
+
+{{One paragraph: what the business is, who buys, what it sells and doesn't, where, when it launches.}}
+Plan of record: `docs/plan.md`. **Current state + how to resume: `docs/STATUS.md` (read first).** Decisions:
+`ops/decisions.md` (newest first). Open questions: `ops/open-items.md`.
+
+## Confirmed facts (the only business facts copy may use)
+- {{fact}} (confirmed by {{owner}}, {{date}})
+- {{fact}}
+Anything not listed here is `[VERIFY: …]` in copy and a line in `ops/open-items.md`.
+
+## Architecture
+- {{System A}} = source of truth for {{what}}.
+- {{System B}} = source of truth for {{what}}.
+- {{Frontend}} = every customer page. Never write {{price/stock/etc.}} anywhere but {{System A}}.
+
+## Non-negotiables
+1. **No invented facts.** Never invent numbers, specs, dates, prices, reviews, ratings or scarcity. Unknowns become
+   `[VERIFY: …]` and get added to `ops/open-items.md`.
+2. **Every catalog/product fact carries a source** (`field | url | accessed | verbatim quote`). Method: the
+   `fact-research` skill. Allowed sources, in order: {{official → distributor → dataset}}. Banned sources: {{list}}.
+3. **Images:** own photos > official/distributor assets (credited). Never other sellers' or marketplace images.
+   Every image records `source` + `license_note`.
+4. **Banned claims:** {{e.g. investment talk, health claims, implied partnerships, fake scarcity}}.
+5. **Independent QA.** Producers never score their own work. The `judge` agent scores against `qa/rubrics/*.yaml`
+   (protocol: `qa-scorecard` skill). PASS = ≥ 80 weighted, no criterion < 6, hard gates pass. Launch-critical
+   ({{list pages}}) needs ≥ 85. Max 3 revise rounds, then escalate to {{owner}}. Only the main session appends to
+   `qa/ledger.jsonl`.
+6. **Mobile rules below apply to every page.** Verify on a real iPhone (Safari + Chrome) before calling UI done.
+
+## Design
+- Pick the look with the `html-design-options` skill before building pages in the real app.
+- Standard for every page: `research/design/QUALITY-BAR.md` (pass/fail rules with IDs, each citing a reference).
+- Owner's rulings so far (each is a Q0 rule in the quality bar): {{"no city name in the hero", "not plain", …}}.
+- What the owner has rejected, verbatim: {{"too loud", "too clinical", …}}.
+
+## Mobile rules (iOS Safari and Chrome are both WebKit; desktop devtools emulation hides these bugs)
+- Never unscoped `html { scroll-behavior: smooth }`: iOS ignores `window.scrollTo` while it is on. Scope it:
+  `@media (prefers-reduced-motion: no-preference) { html:focus-within { scroll-behavior: smooth } }`.
+- `<ScrollToTop>` on route change: set `documentElement.style.scrollBehavior = "auto"`, wait one
+  `requestAnimationFrame`, write `window.scrollTo(0,0)`, `documentElement.scrollTop = 0` and `body.scrollTop = 0`,
+  restore. `useEffect`, not `useLayoutEffect`. Mobile nav links close and scroll synchronously inside `onClick`.
+- `viewport: { viewportFit: "cover" }`; fixed bottom bars use `padding-bottom: env(safe-area-inset-bottom)`.
+- `min-h-svh` / `h-dvh`, never `min-h-screen` / `100vh`.
+- Tap targets ≥ 44×44px; `touch-action: manipulation` on primary buttons; real `<button>`/`<a>` only.
+- Inputs/selects/textareas ≥ 16px (or iOS zooms on focus); right `type`/`inputMode`; native `<select>` on mobile.
+
+## Banned copy
+seamless, elevate, unleash, game-changer, revolutionary, world-class, cutting-edge, best-in-class, "in today's…",
+"when it comes to…", {{project's own}}. If a line could sit on a competitor's site unchanged, rewrite it.
+
+## Folders
+docs/ (plan, STATUS) · ops/ (decisions, open-items) · research/ (swipe/, seo/, design/QUALITY-BAR.md) ·
+data/records/ (sourced fact records) · mockups/ (html-design-options: BRIEF, kit/, options/, shots/, tools/) ·
+app or web/ (the real site) · qa/ (rubrics, ledger.jsonl) · .claude/{agents,skills}
+
+## Tools
+- Browser: `agent-browser --session {{proj}}-<task> --idle-timeout 60m …` (always a named session; never pipe the
+  first command), or `node mockups/tools/shoot.mjs`. Never kill the user's Chrome globally.
+- Mockup preview: `cd mockups && python -m http.server 4100 --bind 127.0.0.1`. Gate: `node mockups/tools/capture.mjs <slug>`.
+- {{Database / hosting / store IDs and where credentials live (never commit them).}}
+- Ask {{owner}} before any write to live products, orders, customers, payments or settings.

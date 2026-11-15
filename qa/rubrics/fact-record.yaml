@@ -1,0 +1,45 @@
+rubric: fact-record
+version: 1
+use: One record JSON built with the fact-research skill. Score the JSON itself; open the cited URLs to spot-check.
+evidence: the record; the cited URLs (spot-check >= 20% of facts[], min 4, always including every number and price);
+  the image URLs; ops/open-items.md for its [VERIFY] lines.
+pass: {weighted_min: 80, criterion_min: 6}
+note: A record can PASS with verify[] items. Passing means "honest and correctly shaped", not "ready to publish".
+hard_gates:
+  no_unsourced_numbers: every number in the record has a facts[] entry with url + accessed + a verbatim quote that
+    contains it, or is [VERIFY] with a matching verify[] line. One unsourced number = FAIL.
+  no_banned_sources: no fact sourced from a site the project bans. FAIL.
+  no_disallowed_images: no image from another seller, a marketplace listing or an unlicensed source. FAIL.
+criteria:
+  - id: facts_sourced
+    weight: 30
+    ask: Does every field trace to a facts[] entry, and do the quotes hold when opened?
+    anchors:
+      0: facts[] empty or quotes paraphrased
+      5: most fields sourced; some quotes paraphrased or dates missing
+      8: every field has url + accessed + verbatim quote; spot-checks hold; gaps are [VERIFY] + verify[]
+      10: as 8 and key facts confirmed by two independent allowed sources
+  - id: source_priority
+    weight: 15
+    ask: Are only allowed sources used, highest priority first?
+    anchors: {0: "blogs/forums/listings as sources", 5: "allowed but a lower source used where the official one exists",
+              8: "official first, then the allowed fallbacks in order", 10: "as 8 and unavailable higher sources are noted"}
+  - id: completeness
+    weight: 20
+    ask: Is every field the page will need filled or explicitly [VERIFY]?
+    anchors: {0: "name only", 5: "core fields present, others missing silently", 8: "every field filled or [VERIFY]",
+              10: "as 8 plus external IDs for every system that lists it"}
+  - id: image_license
+    weight: 10
+    ask: Does every image have an allowed source, license_note, credit and alt text?
+    anchors: {0: "no source", 5: "source but no license_note/alt", 8: "all four present", 10: "own photo present"}
+  - id: description_usefulness
+    weight: 15
+    ask: Is description_md genuinely useful, 150-300 words, built only from sourced fields?
+    anchors: {0: "missing or pasted marketing copy", 5: "boilerplate that fits any item by swapping the name",
+              8: "what it is, what's in it, who it suits, links; every fact also in facts[]",
+              10: "a buyer learns something the official page doesn't make obvious"}
+  - id: no_banned_claims
+    weight: 10
+    ask: Free of hype, banned words and banned claims?
+    anchors: {0: "banned claim present", 5: "hype adjectives", 8: "plain and factual", 10: "caveats stated where the source is conditional"}

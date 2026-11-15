@@ -1,0 +1,53 @@
+rubric: html-option
+version: 1
+use: Homepage + second-page HTML options (mockups/options/<slug>/). Judges score from the screenshots in
+  mockups/shots/<slug>/ (phone 390x844 and desktop 1280x800, first screen and full page, both pages).
+calibration: the best real sites in the category scored 79-81 on this rubric (first real run, 2026). 80 = as good as a
+  top brand's live site. Say this in every judge prompt.
+pass: keep >= 80 weighted and no criterion < 6; one bold revise round for 65-79; almost 70-79; drop < 70.
+hard_gates:
+  - capture.sh gate.json _pass is true (no horizontal scroll, no broken images, no banned words, a CTA on the first
+    phone screen of the homepage, the logo marked data-logo)
+  - only copy from mockups/kit/content.json (shortened is fine); no invented claims, numbers or prices
+  - no AI / concept / placeholder captions anywhere on the page
+criteria:
+  first_screen:
+    weight: 20
+    ask: On the phone first screen, in 3 seconds, do you see the product, know what it is and see one clear button?
+      Same on desktop.
+    anchors: {0: "no product, no button, or unclear what it is", 5: "all there but weak or crowded",
+              8: "instant: product, message and button read at a glance", 10: "as clear as the best reference first screen"}
+  real_brand_craft:
+    weight: 25
+    ask: Does it look like a real, premium brand's live site (type, spacing, image use, detail), not a template or an
+      AI site? Every section designed, nothing unfinished.
+    anchors: {0: "template / broken", 5: "competent but generic", 8: "would pass as a funded DTC brand",
+              10: "matches the reference brand it draws on"}
+  clean_simple:
+    weight: 15
+    ask: Simple and easy to follow, and NOT any of the traits the client rejected (list them here). Sections tight
+      and purposeful.
+    anchors: {0: "messy or clinical", 5: "one of the rejected traits shows", 8: "clean and warm, nothing wasted",
+              10: "effortless"}
+  brand_fit:
+    weight: 10
+    ask: Is it unmistakably THIS brand (logo, the real product, its colours/variants, its tagline) rather than a site
+      any competitor could use?
+    anchors: {0: "generic", 5: "logo only", 8: "product and brand assets drive the design", 10: "only this brand could run it"}
+  second_page:
+    weight: 15
+    ask: Does the second page (shop / product / pricing / quote) keep the fixed structure, restyled to this option, and
+      is the decision easy on a phone (ideally one screen)?
+    anchors: {0: "missing or broken", 5: "structure there, awkward to use", 8: "easy one-screen decision",
+              10: "as good as the best reference page"}
+  research_grounding:
+    weight: 5
+    ask: Does NOTES.md name the reference brand(s) and the proven pattern taken, and does the page actually use it well?
+    anchors: {0: "none", 5: "named but loosely used", 8: "pattern clearly applied", 10: "pattern improved on"}
+  distinct:
+    weight: 10
+    ask: Compared with the options already kept, is this a genuinely different look and feel (layout, type, colour,
+      imagery mood), not a recolour?
+    anchors: {0: "near duplicate", 5: "same skeleton, new skin", 8: "clearly its own direction", 10: "nothing like it on the board"}
+ranking: kept options play a pairwise tournament (a judge sees two side by side and picks the one the client's team
+  should launch). Final rank = Elo; weighted score breaks ties.

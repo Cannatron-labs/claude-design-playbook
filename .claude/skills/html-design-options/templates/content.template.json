@@ -1,0 +1,42 @@
+{
+  "_rules": "Builders may use ONLY this copy (shorten or pick, never add claims, numbers, times, prices). Reviews and rating: real, or marked team-preview in the brief. Fill every field from the repo's existing approved copy.",
+  "brand": {
+    "name": "ACME",
+    "tagline": "ONE. TWO. THREE.",
+    "accent": "#003DCB",
+    "ink": "#0A0A0A",
+    "logo": "how the logo is built (wordmark + mark), so builders can set it in HTML"
+  },
+  "product": "Full product name",
+  "hero": {
+    "h1": "Main headline",
+    "sub": "One line: what it is and the main benefit.",
+    "cta": "Shop ACME",
+    "alt_headlines": ["Alternative headline 1", "Alternative headline 2"]
+  },
+  "bullets": ["Benefit 1", "Benefit 2", "What you get", "Range"],
+  "how": {
+    "header": "How it works",
+    "steps": [
+      { "word": "STEP 1.", "text": "Short line." },
+      { "word": "STEP 2.", "text": "Short line." },
+      { "word": "STEP 3.", "text": "Short line." }
+    ]
+  },
+  "variants": [
+    { "id": "variant-1", "name": "Variant One", "short": "#1", "hex": "#151515" }
+  ],
+  "variantHelp": ["How to pick a variant.", "Tie-break rule."],
+  "sizes": [
+    { "label": "1 unit", "price": "$29" },
+    { "label": "2 units", "price": "$49", "strike": "$58", "badge": "Save $9", "default": true }
+  ],
+  "rating": { "average": 4.8, "count": 0 },
+  "reviews": [
+    { "name": "First L.", "variant": "variant-1", "rating": 5, "title": "Title", "body": "Body." }
+  ],
+  "faq": [{ "q": "Question?", "a": "Answer." }],
+  "secondPageAccordions": { "how": "How to use", "inside": "What's inside", "shipping": "Shipping" },
+  "shipping": "Where and how it ships.",
+  "banned": ["seamless", "elevate", "unleash", "game-changer", "revolutionary", "world-class", "cutting-edge", "best-in-class"]
+}

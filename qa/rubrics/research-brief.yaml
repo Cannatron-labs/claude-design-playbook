@@ -1,0 +1,45 @@
+rubric: research-brief
+version: 1
+use: A research brief - market, competitors, swipe teardowns, keyword/SERP evidence, sourcing.
+pass: {weighted_min: 70, criterion_min: 6}   # a brief that drives launch strategy needs 80
+hard_gates:
+  - no_invented_facts: any fabricated stat, keyword volume, price, quote or URL = FAIL
+  - no_banned_sources: sites the project bans may be linked, never scraped or used as a data feed
+  - follows_output_contract: files exist where the task brief or the project CLAUDE.md says
+criteria:
+  - id: evidence
+    weight: 30
+    anchors:
+      0: claims without links or quotes
+      5: most claims linked, few verbatim quotes, some unsupported generalisations
+      8: every claim has url + accessed date + quote (or tool + date for SEO numbers); patterns backed by >= 3
+        examples or labelled HYPOTHESIS
+      10: as 8, plus spot-checked citations all hold and gaps (paywalls, blocked sites) are logged
+  - id: coverage
+    weight: 20
+    anchors:
+      0: one or two sources
+      5: obvious players covered, notable gaps
+      8: direct competitors + category leaders + an outside-the-category benchmark, gaps named
+      10: as 8, plus a non-obvious source a competitor would miss
+  - id: specificity
+    weight: 20
+    anchors:
+      0: generic best-practice prose
+      5: some concrete observations mixed with generic advice
+      8: concrete observed details (exact headlines, URL patterns, prices on a date, section order, keyword + volume + date)
+      10: as 8 with screenshots/quotes proving each
+  - id: actionability
+    weight: 20
+    anchors:
+      0: no implications for the project
+      5: vague implications ("build trust", "do SEO")
+      8: 3-7 concrete moves, each tied to evidence, ending in "## So what for us"
+      10: as 8, ranked by expected impact with reasoning
+  - id: recency
+    weight: 10
+    anchors:
+      0: undated or stale (> 3 years) sources dominate
+      5: mixed
+      8: mostly <= 18 months old, dates shown
+      10: all current, live-checked

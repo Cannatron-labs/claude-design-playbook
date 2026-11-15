@@ -1,0 +1,58 @@
+rubric: page
+version: 1
+use: A built page in the real app (not a static mockup). Score one page per state it can be in (e.g. in stock /
+  sold out; logged out / logged in). Rename and reweight criteria for the project, keeping the sum at 100.
+evidence: screenshots at 390x844 and 1280x800 (fold + full); the rendered HTML (view-source); any JSON-LD; the meta
+  robots tag; the source record(s) the page is built from; one batched DOM eval of mobile facts (h-scroll, tap sizes,
+  input font sizes).
+pass: {weighted_min: 80, criterion_min: 6}   # launch-critical pages (listed in CLAUDE.md): 85
+also: the 7-dimension page rubric must pass too (.claude/skills/qa-scorecard/references/page-rubric.md).
+hard_gates:
+  no_invented_facts: every number, spec, price, date or claim on the page traces to a sourced record or the
+    confirmed facts in CLAUDE.md. One untraceable fact = FAIL.
+  structured_data_honest: JSON-LD matches the real state (availability, price, reviews only if real). Mismatch = FAIL.
+  no_banned_claims: nothing from the project's banned-claims list; no fake scarcity, fake reviews, implied partnerships.
+  image_provenance: every image is from an allowed source with source + license recorded.
+  mobile_not_broken: no horizontal scroll at 390, inputs >= 16px, primary taps >= 44px, no unscoped smooth scroll.
+criteria:
+  - id: usefulness
+    weight: 25
+    ask: Would the target customer bookmark this page as the best answer to their question, even if they buy elsewhere?
+    anchors:
+      0: name, price, one photo; nothing else
+      5: the basics, thin; key decision facts missing
+      8: every fact the buyer needs to decide is on the page and scannable on a phone (table / definition list)
+      10: as 8 and clearer than the best competitor page the judge can find (name it)
+  - id: primary_action
+    weight: 15
+    ask: Is the one primary action right for the real state, obvious, and not competing with others?
+    anchors:
+      0: wrong action for the state (e.g. Add to cart on something unavailable), or none
+      5: right primary action but secondary actions missing or competing
+      8: right primary for every state, secondaries clearly secondary, every form has success/error/duplicate states
+      10: as 8 and state changes are data-driven with no manual edits
+  - id: first_screen
+    weight: 15
+    ask: On a phone, in 3 seconds, do you know what this is, whether you can get it, and what to tap?
+    anchors: {0: "unclear", 5: "all there but crowded or weak", 8: "instant", 10: "as clear as the best reference"}
+  - id: craft
+    weight: 15
+    ask: Does it match the picked design option and look like a real, premium brand (type, spacing, images, detail)?
+    anchors: {0: "template / broken", 5: "competent but generic", 8: "matches the design option", 10: "better than the option"}
+  - id: mobile
+    weight: 15
+    ask: Does it work at 390px?
+    anchors:
+      0: horizontal scroll or broken layout
+      5: works, but taps < 44px or inputs < 16px somewhere
+      8: no h-scroll at 360-390, taps >= 44, inputs >= 16 with the right type/inputMode, sticky bars padded with
+        env(safe-area-inset-bottom)
+      10: as 8 and verified on a real iPhone in Safari + Chrome
+  - id: copy
+    weight: 15
+    ask: Does the copy say rather than sell?
+    anchors:
+      0: hype, banned words or banned claims
+      5: mostly factual with some salesy lines
+      8: plain, specific, sourced; no banned words or banned generic patterns
+      10: reads like the most knowledgeable person in the business explaining it

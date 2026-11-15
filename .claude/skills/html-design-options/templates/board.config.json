@@ -1,0 +1,14 @@
+{
+  "brand": "ACME",
+  "accent": "#003DCB",
+  "title": "Homepage + shop page options, ranked.",
+  "intro": "Each option is a full homepage and shop page, modelled on a proven brand. Three independent judges score every one; the ones that pass play head to head, and the board below is the result.",
+  "pages": [
+    { "key": "home", "file": "index.html", "label": "Homepage" },
+    { "key": "shop", "file": "shop.html", "label": "Shop page" }
+  ],
+  "earlier": [
+    { "label": "Current site", "url": "https://example.com" }
+  ],
+  "vercel": { "scope": "your-team", "alias": "acme-options.vercel.app" }
+}
