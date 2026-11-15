@@ -57,6 +57,9 @@ qa/rubrics/                     html-option, page, fact-record, research-brief
 qa/ledger.jsonl                 append-only score history (main session writes it)
 templates/CLAUDE.md.template    project rules starter
 templates/project-docs/         STATUS, decisions, open-items, QUALITY-BAR template
+blueprints/dtc-smoke-shop/      two-domain store: storefront + Shopify-style admin backend (architecture,
+                                admin design system, customers/orders screens, data model, Store API,
+                                compliance, build order)
 ```
 
 ## License

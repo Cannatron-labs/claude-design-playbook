@@ -51,6 +51,7 @@ in it is there because skipping it once cost hours or produced work the owner re
 | | `research-brief.yaml` | Research and teardowns (bar 70). |
 | **Templates** (`templates/`) | `CLAUDE.md.template` | Project rules: confirmed facts, architecture, non-negotiables, iOS mobile rules, banned copy, folders, tools. |
 | | `project-docs/` | `STATUS.md` (hand-off), `decisions.md` (newest first), `open-items.md`, `QUALITY-BAR.template.md`. |
+| **Blueprints** (`blueprints/`) | `dtc-smoke-shop/` | A full plan for a two-domain store: storefront + Shopify-style admin backend, data model, Store API, age/state/tax compliance, build order. Read its README before building any commerce project. |
 
 ---
 
@@ -204,4 +205,5 @@ went straight in.
 | "Build the page" | `web-builder`, then `judge` (page.yaml + page rubric) + `design-reviewer` |
 | Just changed any UI | `design-reviewer` before telling the owner it's done |
 | Unsure of an outside fact | `researcher` skill; never guess |
+| "Build us a store with its own admin" | `blueprints/dtc-smoke-shop/` (README first, then `08-build-order.md`) |
 | End of session | Rewrite `docs/STATUS.md`; log decisions; move `[VERIFY]`s to `ops/open-items.md` |
