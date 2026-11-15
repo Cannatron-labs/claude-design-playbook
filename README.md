@@ -24,7 +24,7 @@ use them in.
 
 Copy it into one project:
 ```bash
-git clone https://github.com/<this-repo>.git /tmp/playbook
+git clone https://github.com/Cannatron-labs/claude-design-playbook.git /tmp/playbook
 cp -r /tmp/playbook/.claude /tmp/playbook/qa /tmp/playbook/PLAYBOOK.md  your-project/
 cp /tmp/playbook/templates/CLAUDE.md.template your-project/CLAUDE.md   # then fill in the {{...}}
 ```
